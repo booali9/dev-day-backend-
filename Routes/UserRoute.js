@@ -1,25 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const blogController = require('../controllers/blogController');
-const { isAuthenticated, isAdmin } = require('../middleware/auth');
-const upload = require('../middleware/upload');
+const authController = require('../controllers/Usercontroller');
 
-// Public routes
-router.get('/', blogController.getAllBlogs);
-router.get('/:id', blogController.getBlog);
-
-// Protected routes (require authentication)
-router.use(isAuthenticated);
-
-router.post('/:id/like', blogController.likeBlog);
-router.post('/:id/comment', blogController.addComment);
-router.post('/:id/save', blogController.saveBlog);
-
-// Admin-only routes
-router.use(isAdmin);
-
-router.post('/', upload.single('image'), blogController.createBlog);
-router.put('/:id', upload.single('image'), blogController.updateBlog);
-router.delete('/:id', blogController.deleteBlog);
+router.post('/signup', authController.signup);
+router.post('/verify-otp', authController.verifyOTP);
+router.post('/signin', authController.signin);
+router.post('/forgot-password', authController.forgotPassword);
+router.post('/reset-password/:token', authController.resetPassword);
 
 module.exports = router;
