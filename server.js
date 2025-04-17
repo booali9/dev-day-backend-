@@ -1,4 +1,7 @@
 const express = require('express');
+const dotenv = require('dotenv');
+dotenv.config(); // Load variables from .env
+
 const app = express();
 const port = process.env.PORT || 3000;
 
